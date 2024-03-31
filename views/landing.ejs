@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title><%= title %></title>
+</head>
+
+<body style="background-color: #10ad6f;">
+<div class="container d-flex justify-content-center align-items-center vh-100">
+    <div class="text-center">
+        <header><img src="/images/yad2Logo.png"  alt="Logo" width="150" height="100"></header>
+        <button class="btn btn-primary my-3 mx-1 active" onclick="location.href='/login';">Login to Admin</button>
+        <button class="btn btn-success my-3 mx-1 active" onclick="location.href='/post-new-ad';">Post Ad</button>
+
+        <form class="my-3" method="get" action="/">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" class="form-control" placeholder="Search ads by title">
+            <button type="submit" class="btn btn-primary mt-3">Submit</button>
+        </form>
+    </div>
+</div>
+
+<% if (showAllButton) { %>
+    <button onclick="location.href='/';">Show All Approved Ads</button>
+<% } %>
+
+<div class="text-center border rounded p-5">
+    <h2>Approved Ads:</h2>
+    <%
+    // sort ads by time
+    ads.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    ads.forEach(ad => { %>
+        <fieldset>
+            <h3><%= ad.title %></h3>
+            <p><%= ad.description %></p>
+            <p>Price: <%= ad.price %></p>
+            <p>Contact: <%= ad.phoneNumber %> | <%= ad.email %></p>
+        </fieldset>
+        <br>
+    <% }); %>
+</div>
+
+</body>
+</html>
